@@ -55,6 +55,7 @@
             return prev;
         }, {})
         if (params["team"]) {
+            window.currentTeam = window.CONFIG.TEAMS[params["team"]]
             document.querySelector("select#team").value = params["team"];
         }
     });
