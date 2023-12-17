@@ -197,15 +197,21 @@
         return preProcessEvents(events);
       }
 
+      function shiftHoursAccordingToSeason(dateTime, hoursOffset) {
+        console.log('bujaga shiftHoursAccordingToSeason', dateTime, moment(dateTime).isDST());
+        if (moment(dateTime).isDST()) return hoursOffset;
+        return hoursOffset - 1; 
+      }
+
       function preProcessEvents(events) {
         return events.map((event) => ({
           ...event,
           start: {
-            dateTime: moment(event.start.dateTime).tz('UTC').add(2, 'hours').format(),
+            dateTime: moment(event.start.dateTime).tz('UTC').add(shiftHoursAccordingToSeason(event.start.dateTime, 2), 'hours').format(),
             timeZone: 'UTC'
           },
           end: {
-            dateTime: moment(event.end.dateTime).tz('UTC').add(2, 'hours').format(),
+            dateTime: moment(event.end.dateTime).tz('UTC').add(shiftHoursAccordingToSeason(event.end.dateTime, 2), 'hours').format(),
             timeZone: 'UTC'
           },          
         }));
