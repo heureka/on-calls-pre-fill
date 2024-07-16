@@ -117,6 +117,10 @@ You can run this project locally (even if it doesn't make much sense :).
 > 
 > It is how it works. You need to be quick and fill your hours before month ends.
 
+> **I can't see override in my calendar, what should i do?**
+> 
+> Export your schedule from OpsGenie and edit your google calendar again. See that there is different `webcalToken` in your calendar URL. Profit.
+
 > **I want new feature, what should I do?**
 > 
 > Create new <a href="https://github.com/heureka/on-calls-pre-fill/issues">issue</a>
