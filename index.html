@@ -450,8 +450,14 @@
           dataTable.addColumn({ type: 'datetime', id: 'Date', label: 'On-call start' });
           dataTable.addColumn({ type: 'number', id: 'Hours in On-call', label: 'Hours in On-call' });
 
-          const rows = onCallsByDay.flat().map((event) => [
-            new Date(event.start), event.duration
+          const durationsByDay = onCallsByDay.flat().reduce((acc, event) => {
+            const day = moment.parseZone(event.start).format('YYYY-MM-DD');
+            acc[day] = (acc[day] || 0) + event.duration;
+            return acc;
+          }, {});
+
+          const rows = Object.entries(durationsByDay).map(([day, duration]) => [
+            moment(day).toDate(), roundToThreeDecimalPlaces(duration)
           ])
 
           dataTable.addRows(rows);
